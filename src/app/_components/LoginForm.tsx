@@ -7,14 +7,14 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { LoginValidation, type LoginElements } from "./type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+// import { api } from "~/trpc/server";
 
 const LoginForm = () => {
   const router = useRouter();
 
-  const credentials = {
-    email: "abc@gmail.com",
-    password: "abc12345",
-  };
+  // const insertLogin = api.login.create.useMutation({
+    
+  // });
 
   const {
     register,
@@ -23,10 +23,8 @@ const LoginForm = () => {
   } = useForm<LoginElements>({ resolver: zodResolver(LoginValidation) });
 
   const onSubmit: SubmitHandler<LoginElements> = (data) => {
-    // Check if input credentials match predefined credentials
-    data.email === credentials.email && data.password === credentials.password
-      ? router.push("/dashboard")
-      : alert("Invalid credentials");
+      console.log(data);
+      router.push("/dashboard")
   };
   return (
     <>
@@ -65,7 +63,7 @@ const LoginForm = () => {
           )}
         </div>
         <Button className="text-md mt-6 bg-green-500 p-4 hover:bg-green-600">
-          Submit
+          {/* {insertLogin.isPending ? "Logging...":"Login"} */}Login
         </Button>
       </form>
     </>

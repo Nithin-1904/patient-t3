@@ -1,71 +1,204 @@
+"use client";
 import React from "react";
-import Text from "./_components/Text";
-import Radio from "./_components/Radio";
 import { department, gender } from "./values";
-import Options from "./_components/Options";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { type PatientElements } from "./_components/types";
+import { type PatientElements } from "./types";
+import { Label } from "~/shadcn/ui/label";
+import { Input } from "~/shadcn/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/shadcn/ui/select";
+import { RadioGroup, RadioGroupItem } from "~/shadcn/ui/radio-group";
+import { Button } from "~/shadcn/ui/button";
 
-const page = () => {
+const Page = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<PatientElements>();
 
-  const {register,handleSubmit, formState:{errors} } = useForm();
-  
-  const onSubmit:SubmitHandler<PatientElements> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<PatientElements> = (data) => console.log(data);
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="m-5 rounded-md bg-white p-16 pt-12 shadow-xl dark:bg-gray-800 dark:text-white">
-          <div className="flex items-end justify-between">
-            <div>
-              <h1 className="text-4xl font-medium text-green-500">
-                {" "}
-                Patient form
-              </h1>
-              <p className="text-md">
-                Fill the details to register the patient
-              </p>
-            </div>
-            <div className="text-right">
-              <h1 className="text-xl font-medium text-green-500">
-                Celeritaz Health Pvt Ltd
-              </h1>
-              <p> 12-45/2 Amigo Street, Darwin Colony</p>
-            </div>
+      <div className="m-5 rounded-md bg-white p-16 pt-12 shadow-xl dark:bg-gray-800 dark:text-white">
+        <div className="flex items-end justify-between">
+          <div>
+            <h1 className="text-4xl font-medium text-green-500">
+              {" "}
+              Patient form
+            </h1>
+            <p className="text-md">Fill the details to register the patient</p>
           </div>
-          <hr className="my-3 border-[1px] border-gray-700" />
-          <div className="grid grid-cols-2 justify-center gap-x-16 gap-y-8 p-4">
-            <Text
-              name="doc_name"
-              label="Doctor Name"
-              placeholder="Doctor Name"
-              type="text"
-              register={register}
-              error={errors.doc_name}
-            />
-            <Options label="Department" name="department" values={department} placeholder="Department" error={errors.department}/>
-            <Text
-              name="patient_name"
-              label="Patient Name"
-              placeholder="Full name"
-              type="text"
-              error={errors.patient}
-            />
-            <Text
-              name="careof"
-              label="Parent/Guardian Name"
-              placeholder="Full name"
-              type="text"
-            />
-            <Text name="age" label="Age" placeholder="Age" type="number" />
-            <Radio label="Gender" name="gender" values={gender} />
-            <Text name="email" label="Email" placeholder="Email" type="email" />
-            <Text name="occupation" label="Occupation" placeholder="Occupation" type="text" />
+          <div className="text-right">
+            <h1 className="text-xl font-medium text-green-500">
+              Celeritaz Health Pvt Ltd
+            </h1>
+            <p> 12-45/2 Amigo Street, Darwin Colony</p>
           </div>
         </div>
-      </form>
+        <hr className="my-3 border-[1px] border-gray-700" />
+        <form className="flex flex-col gap-y-8 items-center" onSubmit={handleSubmit(onSubmit)}>
+          <div className="w-full grid grid-cols-2 justify-center gap-x-16 gap-y-8 p-4">
+            <div className="grid w-full items-center">
+              <Label htmlFor="doc_name" className="text-xl text-green-500">
+                Doctor Name
+              </Label>
+              <Input
+                type="text"
+                id="doc_name"
+                placeholder="Doctor Name"
+                className="text-md h-full border-[2px] border-green-500 p-3"
+                {...register("doc_name")}
+              />
+              {errors && (
+                <p className="text-red-500">{errors.doc_name?.message}</p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="department" className="text-xl text-green-500">
+                Department
+              </Label>
+              <Select {...register("department")} >
+                <SelectTrigger className="text-md h-[60%] border-[2px] border-green-500 p-3">
+                  <SelectValue
+                    placeholder="Department"
+                    className="text-slate-100"
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {department.map((value, index) => (
+                    <SelectItem key={index} value={value.toLowerCase()}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors && (
+                <p className="text-red-500">{errors.department?.message}</p>
+              )}
+            </div>
+
+            <div className="grid w-full items-center">
+              <Label htmlFor="patient_name" className="text-xl text-green-500">
+                Patient Name
+              </Label>
+              <Input
+                type="text"
+                id="patient_name"
+                placeholder="Full name"
+                className="text-md h-full border-[2px] border-green-500 p-3"
+                {...register("patient_name")}
+              />
+              {errors && (
+                <p className="text-red-500">{errors.patient_name?.message}</p>
+              )}
+            </div>
+
+            <div className="grid w-full items-center">
+              <Label htmlFor="careof" className="text-xl text-green-500">
+                Parent/Guardian Name
+              </Label>
+              <Input
+                type="text"
+                id="careof"
+                placeholder="Full name"
+                className="text-md h-full border-[2px] border-green-500 p-3"
+                {...register("careof")}
+              />
+              {errors && (
+                <p className="text-red-500">{errors.careof?.message}</p>
+              )}
+            </div>
+
+            <div className="grid w-full items-center">
+              <Label htmlFor="age" className="text-xl text-green-500">
+                Age
+              </Label>
+              <Input
+                type="number"
+                id="age"
+                placeholder="Age"
+                className="text-md h-full border-[2px] border-green-500 p-3"
+                {...register("age")}
+              />
+              {errors && (
+                <p className="text-red-500">{errors.age?.message}</p>
+              )}
+            </div>
+
+            <div className="grid">
+              <Label htmlFor="gender" className="text-xl text-green-500">
+                Gender
+              </Label>
+              <div>
+                <RadioGroup className="grid grid-cols-3">
+                  {gender.map((value, index) => (
+                    <>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          key={index}
+                          id={value.toLowerCase()}
+                          value={value.toLowerCase()}
+                          {...register("gender")}
+                        />
+                        <Label
+                          className="text-green-500"
+                          htmlFor={value.toLowerCase()}
+                        >
+                          {value}
+                        </Label>
+                      </div>
+                    </>
+                  ))}
+                </RadioGroup>
+                {errors && <p className="text-red-500">{errors.gender?.message}</p>}
+              </div>
+            </div>
+
+            <div className="grid w-full items-center">
+              <Label htmlFor="email" className="text-xl text-green-500">
+                Email
+              </Label>
+              <Input
+                type="email"
+                id="email"
+                placeholder="Email"
+                className="text-md h-full border-[2px] border-green-500 p-3"
+                {...register("email")}
+              />
+              {errors && (
+                <p className="text-red-500">{errors.email?.message}</p>
+              )}
+            </div>
+
+            <div className="grid w-full items-center">
+              <Label htmlFor="occupation" className="text-xl text-green-500">
+                Occupation
+              </Label>
+              <Input
+                type="text"
+                id="occupation"
+                placeholder="Occupation"
+                className="text-md h-full border-[2px] border-green-500 p-3"
+                {...register("occupation")}
+              />
+              {errors && (
+                <p className="text-red-500">{errors.occupation?.message}</p>
+              )}
+            </div>
+          </div>
+          <Button className=" bg-green-500 hover:bg-green-700 w-[40%] text-md font-medium h-full p-3 items-center">Submit</Button>
+        </form>
+      </div>
     </>
   );
 };
 
-export default page;
+export default Page;
