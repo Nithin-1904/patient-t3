@@ -14,6 +14,7 @@ import {
 } from "~/shadcn/ui/select";
 import { RadioGroup, RadioGroupItem } from "~/shadcn/ui/radio-group";
 import { Button } from "~/shadcn/ui/button";
+import { api } from "~/trpc/react";
 
 const Page = () => {
   const {
@@ -22,7 +23,14 @@ const Page = () => {
     formState: { errors },
   } = useForm<PatientElements>();
 
-  const onSubmit: SubmitHandler<PatientElements> = (data) => console.log(data);
+  const insertDetails = api.patient.create.useMutation({
+    onSuccess: (data) => console.log(data),
+  });
+
+  const onSubmit: SubmitHandler<PatientElements> = async (data) => {
+    console.log(data);
+    await insertDetails.mutateAsync(data);
+  };
 
   return (
     <>
@@ -43,8 +51,11 @@ const Page = () => {
           </div>
         </div>
         <hr className="my-3 border-[1px] border-gray-700" />
-        <form className="flex flex-col gap-y-8 items-center" onSubmit={handleSubmit(onSubmit)}>
-          <div className="w-full grid grid-cols-2 justify-center gap-x-16 gap-y-8 p-4">
+        <form
+          className="flex flex-col items-center gap-y-8"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="grid w-full grid-cols-2 justify-center gap-x-16 gap-y-8 p-4">
             <div className="grid w-full items-center">
               <Label htmlFor="doc_name" className="text-xl text-green-500">
                 Doctor Name
@@ -65,14 +76,14 @@ const Page = () => {
               <Label htmlFor="department" className="text-xl text-green-500">
                 Department
               </Label>
-              <Select {...register("department")} >
-                <SelectTrigger className="text-md h-[60%] border-[2px] border-green-500 p-3">
+              <Select {...register("department")}>
+                <SelectTrigger  className="text-md h-[60%] border-[2px] border-green-500 p-3">
                   <SelectValue
                     placeholder="Department"
-                    className="text-slate-100"
                   />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent
+                 >
                   {department.map((value, index) => (
                     <SelectItem key={index} value={value.toLowerCase()}>
                       {value}
@@ -126,11 +137,9 @@ const Page = () => {
                 id="age"
                 placeholder="Age"
                 className="text-md h-full border-[2px] border-green-500 p-3"
-                {...register("age")}
+                {...register("age",{valueAsNumber:true,min:3})}
               />
-              {errors && (
-                <p className="text-red-500">{errors.age?.message}</p>
-              )}
+              {errors && <p className="text-red-500">{errors.age?.message}</p>}
             </div>
 
             <div className="grid">
@@ -158,7 +167,9 @@ const Page = () => {
                     </>
                   ))}
                 </RadioGroup>
-                {errors && <p className="text-red-500">{errors.gender?.message}</p>}
+                {errors && (
+                  <p className="text-red-500">{errors.gender?.message}</p>
+                )}
               </div>
             </div>
 
@@ -194,7 +205,9 @@ const Page = () => {
               )}
             </div>
           </div>
-          <Button className=" bg-green-500 hover:bg-green-700 w-[40%] text-md font-medium h-full p-3 items-center">Submit</Button>
+          <Button className=" text-md h-full w-[40%] items-center bg-green-500 p-3 font-medium hover:bg-green-700">
+            {insertDetails.isPending ? "Submitting..." : "Submit"}
+          </Button>
         </form>
       </div>
     </>

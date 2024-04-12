@@ -1,21 +1,39 @@
-"use client";
-import Image from "next/image";
+// "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "~/shadcn/ui/button";
+import { api } from "~/trpc/server";
 
-const Dashboard = () => {
+const Dashboard =  () => {
   const router = useRouter();
   const register = () => {
     router.push("/patient");
   };
+  
+  const hello = api.login.latestMail;
 
   return (
     <>
-      <div className=" grid h-full w-full grid-cols-2 gap-2 p-2">
+      <nav className="bg-white shadow-md w-full rounded-b-md flex justify-between items-center p-4">
+        <div className="flex items-baseline gap-3">
+          <h1 className="text-5xl font-medium">{hello}</h1>
+          <p className="text-1xl font-medium">Pvt Ltd</p>
+        </div>
+        <div>
+          <ul className="flex gap-10">
+            <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">Home</li></Link>
+            <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">About</li></Link>
+            <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">Form</li></Link>
+            <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">FAQs</li></Link>
+            <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">Support</li></Link>
+          </ul>
+        </div>
+      </nav>
+      <div className=" grid h-screen w-full grid-cols-2 gap-2 p-2">
         <div className="grid gap-2">
           <div className="box-border rounded-md bg-white p-4 shadow-md">
-            <h1 className="text-4xl font-medium">Welcome to Health App</h1>
+            <h1 className="text-3xl font-medium"> Welcome to Celertiaz </h1>
             <p className="mb-7 text-xl">An optimal app for various tasks:</p>
             <p className="text-md mb-5">
               Lorem ipsum dolor sit amet, simul nominati definiebas ius eu, ne
@@ -63,8 +81,41 @@ const Dashboard = () => {
             </p>
           </div>
         </div>
-        <div className="rounded-md bg-white shadow-md">
-          <Image src="/graph.png" alt="graph" height={100} width={100} />
+        <div className="rounded-md bg-white shadow-md p-4">
+          <p>
+            abso dion aid osind asnd osanduedne n dian due dnaus duasnd edbnwhd
+            najnd jsand dbehdb asdna hdnbh debjd bahsbd hAND HEDB EHDB AHD
+            HSANDHSBDH EDBEHDN CED HBHN n h ahd heb dhea h Lorem ipsum dolor sit
+            amet, simul nominati definiebas ius eu, ne eius summo rationibus
+            pro. At error sensibus sbsa hsba hashv knidig hbas bhdbsh dbshbdhs
+            iwina winishwknai sjna jaubc rationibus ius, qui et appetere
+            instructior consectetuer, saepe laudem moderatius his cu. Est option
+            indoctum volutpat ea, vitae dicant duo an. Ea idque copiosae eos,
+            autem mollis cu duo. Mea cu mutat mundi deterruisset. Ius debitis
+            dolorem efficiendi at, ex sea patrioque constituto. Dicant epicuri
+            ut est, in eam ignota accommodare. abso dion aid osind asnd
+            osanduedne n dian due dnaus duasnd edbnwhd najnd jsand dbehdb asdna
+            hdnbh debjd bahsbd hAND HEDB EHDB AHD HSANDHSBDH EDBEHDN CED HBHN n
+            h ahd heb dhea h Lorem ipsum dolor sit amet, simul nominati
+            definiebas ius eu, ne eius summo rationibus pro. At error sensibus
+            sbsa hsba hashv knidig hbas bhdbsh dbshbdhs iwina winishwknai sjna
+            jaubc rationibus ius, qui et appetere instructior consectetuer,
+            saepe laudem moderatius his cu. Est option indoctum volutpat ea,
+            vitae dicant duo an. Ea idque copiosae eos, autem mollis cu duo. Mea
+            cu mutat mundi deterruisset. Ius debitis dolorem efficiendi at, ex
+            sea patrioque constituto. Dicant epicuri ut est, in eam ignota
+            accommodare. abso dion aid osind asnd osanduedne n dian due dnaus
+            duasnd edbnwhd najnd jsand dbehdb asdna hdnbh debjd bahsbd hAND HEDB
+            EHDB AHD HSANDHSBDH EDBEHDN CED HBHN n h ahd heb dhea h Lorem ipsum
+            dolor sit amet, simul nominati definiebas ius eu, ne eius summo
+            rationibus pro. At error sensibus sbsa hsba hashv knidig hbas bhdbsh
+            dbshbdhs iwina winishwknai sjna jaubc rationibus ius, qui et
+            appetere instructior consectetuer, saepe laudem moderatius his cu.
+            Est option indoctum volutpat ea, vitae dicant duo an. Ea idque
+            copiosae eos, autem mollis cu duo. Mea cu mutat mundi deterruisset.
+            Ius debitis dolorem efficiendi at, ex sea patrioque constituto.
+            Dicant epicuri ut est, in eam ignota accommodare.
+          </p>
         </div>
       </div>
     </>
