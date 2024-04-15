@@ -37,17 +37,17 @@ const Page = () => {
       <div className="m-5 rounded-md bg-white p-16 pt-12 shadow-xl dark:bg-gray-800 dark:text-white">
         <div className="flex items-end justify-between">
           <div>
-            <h1 className="text-4xl font-medium text-green-500">
+            <h1 className="text-5xl font-medium text-green-500">
               {" "}
               Patient form
             </h1>
-            <p className="text-md">Fill the details to register the patient</p>
+            <p className="text-xl">Fill the details to register the patient</p>
           </div>
           <div className="text-right">
-            <h1 className="text-xl font-medium text-green-500">
+            <h1 className="text-3xl font-medium text-green-500">
               Celeritaz Health Pvt Ltd
             </h1>
-            <p> 12-45/2 Amigo Street, Darwin Colony</p>
+            <p className="text-md"> 12-45/2 Amigo Street, Darwin Colony</p>
           </div>
         </div>
         <hr className="my-3 border-[1px] border-gray-700" />

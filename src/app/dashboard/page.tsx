@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -11,14 +11,14 @@ const Dashboard =  () => {
     router.push("/patient");
   };
   
-  const hello = api.login.latestMail;
+  // const hello = api.login.latestMail;
 
   return (
     <>
       <nav className="bg-white shadow-md w-full rounded-b-md flex justify-between items-center p-4">
         <div className="flex items-baseline gap-3">
-          <h1 className="text-5xl font-medium">{hello}</h1>
-          <p className="text-1xl font-medium">Pvt Ltd</p>
+          {/* <h1 className="text-5xl font-medium">{hello}</h1> */}
+          <p className="text-xl font-medium tracking-tighter"> <span className="text-4xl text-green-500 tracking-tighter">Celeritaz</span>  Pvt Ltd</p>
         </div>
         <div>
           <ul className="flex gap-10">

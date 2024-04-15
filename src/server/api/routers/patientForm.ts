@@ -33,4 +33,16 @@ export const patientRouter = createTRPCRouter({
       });
     }),
 
+
+  getValues: publicProcedure
+  .query(({ctx})=>{
+    return ctx.db.patient.findMany({
+      select:{
+        id:true,
+        patient_name:true,
+        department:true,
+      }
+    });
+  }
+  )
 });

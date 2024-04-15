@@ -25,6 +25,8 @@ model User {
   password  String
 }
 
+
+
 model Patient{
     id             Int       @id @default(autoincrement())
     doc_name       String
@@ -32,8 +34,9 @@ model Patient{
     patient_name   String
     careof         String
     age            Int
-    gender         String 
-    email          String   
+    gender         String   
+    email          String    @unique
     occupation     String
+    submittedAt    DateTime  
 }
 

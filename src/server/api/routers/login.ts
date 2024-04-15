@@ -27,11 +27,19 @@ export const loginRouter = createTRPCRouter({
       });
     }),
 
+  // latestMail: publicProcedure.query (async ({ ctx }) => {
+  //   const response = await ctx.db.user.findFirst({
+  //     orderBy: { email: "desc" },
+  //   });
+  //   // Fetch and return the input email
+  //   return response;
+  // }),
+
   latestMail: publicProcedure.query (async ({ ctx }) => {
-    const response = await ctx.db.user.findFirst({
+    // Fetch and return the input email
+    return ctx.db.user.findFirst({
       orderBy: { email: "desc" },
     });
-    // Fetch and return the input email
-    return response;
   }),
+
 });
