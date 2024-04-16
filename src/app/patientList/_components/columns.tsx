@@ -33,5 +33,9 @@ export const columns: ColumnDef<Patient>[] = [
     accessorKey:"department",
     header: "Department",
   },
+  {
+    accessorKey:"submittedAt",
+    header: "Submitted At",
+  }
 
 ]

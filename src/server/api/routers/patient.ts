@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Patient } from "~/app/patientList/_components/columns";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const patientRouter = createTRPCRouter({
@@ -34,15 +35,16 @@ export const patientRouter = createTRPCRouter({
     }),
 
 
-  getValues: publicProcedure
-  .query(({ctx})=>{
-    return ctx.db.patient.findMany({
-      select:{
-        id:true,
-        patient_name:true,
-        department:true,
-      }
-    });
-  }
-  )
+    getValues: publicProcedure.query(async ({ ctx }) => {
+      const patients = await ctx.db.patient.findMany({
+        select: {
+          id: true,
+          patient_name: true,
+          department: true,
+          // Make sure to select the correct field from your database
+          // submittedAt: true, // Remove this line if submittedAt is not a field in your Patient type
+        },
+      });
+      return patients;
+    }),
 });

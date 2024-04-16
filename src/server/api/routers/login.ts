@@ -35,8 +35,7 @@ export const loginRouter = createTRPCRouter({
   //   return response;
   // }),
 
-  latestMail: publicProcedure.query (async ({ ctx }) => {
-    // Fetch and return the input email
+  getMail: publicProcedure.query (({ ctx }) => {
     return ctx.db.user.findFirst({
       orderBy: { email: "desc" },
     });

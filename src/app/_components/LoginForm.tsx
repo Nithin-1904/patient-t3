@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { Button } from "~/shadcn/ui/button";
 import { Input } from "~/shadcn/ui/input";
@@ -9,16 +9,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 
-
 const LoginForm = () => {
   const router = useRouter();
 
   const insertCredentials = api.login.insert.useMutation({
     onSuccess: () => {
-      router.push("/dashboard")
+      router.push("/dashboard");
     },
-  })
-  
+  });
 
   const {
     register,
@@ -27,8 +25,8 @@ const LoginForm = () => {
   } = useForm<LoginElements>({ resolver: zodResolver(LoginValidation) });
 
   const onSubmit: SubmitHandler<LoginElements> = async (data) => {
-      console.log(data);
-      await insertCredentials.mutateAsync(data);
+    console.log(data);
+    await insertCredentials.mutateAsync(data);
   };
   return (
     <>
@@ -67,7 +65,7 @@ const LoginForm = () => {
           )}
         </div>
         <Button className="text-md mt-6 bg-green-500 p-4 hover:bg-green-600">
-          {insertCredentials.isPending ? "Logging...":"Login"}
+          {insertCredentials.isPending ? "Logging..." : "Login"}
         </Button>
       </form>
     </>

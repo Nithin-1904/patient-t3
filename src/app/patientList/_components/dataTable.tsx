@@ -11,6 +11,7 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import { useState } from "react";
+import { Button } from "~/shadcn/ui/button";
 import { Input } from "~/shadcn/ui/input";
 
 import {
@@ -52,10 +53,14 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center justify-between py-4">
-        <h1 className="text-green-500 text-4xl tracking-tighter font-semibold">List of patients</h1>
+        <h1 className="text-4xl font-semibold tracking-tighter text-green-500">
+          List of patients
+        </h1>
         <Input
           placeholder="Filter names..."
-          value={(table.getColumn("patient_name")?.getFilterValue() as string) ?? ""}
+          value={
+            (table.getColumn("patient_name")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
             table.getColumn("patient_name")?.setFilterValue(event.target.value)
           }
@@ -86,33 +91,35 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  className="text-lg"
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
+            <Button>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    className="text-lg"
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center text-4xl font-medium text-green-500"
+                  >
+                    No results.
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-4xl text-green-500 font-medium text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
+              )}
+            </Button>
           </TableBody>
         </Table>
       </div>

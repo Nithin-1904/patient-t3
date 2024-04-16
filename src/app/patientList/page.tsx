@@ -6,7 +6,7 @@ import { api } from "~/trpc/react";
 
 
 const page = () => {
-  // const data = await api.patientForm.getValues();
+  const data =  api.patient.getValues;
   return (
     <>
       <div className="m-9 rounded-md bg-white p-16 pt-12 shadow-xl">
@@ -29,7 +29,7 @@ const page = () => {
         </div>
         <hr className="my-3 border-[1px] border-gray-700" />
         <div className="container mx-auto py-10">
-          {/* <DataTable columns={columns} data={data} /> */}
+          <DataTable columns={columns} data={data} />
         </div>
       </div>
     </>

@@ -3,28 +3,33 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "~/shadcn/ui/button";
-import { api } from "~/trpc/server";
+import { api } from "~/trpc/react";
 
 const Dashboard =  () => {
   const router = useRouter();
+
   const register = () => {
-    router.push("/patient");
+    router.push("/patientForm");
+  };
+
+  const list = () => {
+    router.push("/patientList");
   };
   
-  // const hello = api.login.latestMail;
+  const hello = api.login.getMail;
 
   return (
     <>
       <nav className="bg-white shadow-md w-full rounded-b-md flex justify-between items-center p-4">
         <div className="flex items-baseline gap-3">
-          {/* <h1 className="text-5xl font-medium">{hello}</h1> */}
+          <h1 className="text-5xl font-medium">{hello}</h1>
           <p className="text-xl font-medium tracking-tighter"> <span className="text-4xl text-green-500 tracking-tighter">Celeritaz</span>  Pvt Ltd</p>
         </div>
         <div>
           <ul className="flex gap-10">
             <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">Home</li></Link>
             <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">About</li></Link>
-            <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">Form</li></Link>
+            <Link href="/patientForm"><li className="text-green-500 font-medium text-xl">Form</li></Link>
             <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">FAQs</li></Link>
             <Link href="/dashboard"><li className="text-green-500 font-medium text-xl">Support</li></Link>
           </ul>
@@ -58,7 +63,7 @@ const Dashboard =  () => {
               </div>
               <div className="grid gap-2">
                 <label className="text-xl">Patients list</label>
-                <Button className="h-12 rounded-md bg-green-400 hover:bg-green-500">
+                <Button onClick={list} className="h-12 rounded-md bg-green-400 hover:bg-green-500">
                   Enter
                 </Button>
               </div>
